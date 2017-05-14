@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script>
+<script type="ts">
 export default {
   name: 'hello',
   data () {

@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Group, Cell } from 'vux'
 
 export default {
