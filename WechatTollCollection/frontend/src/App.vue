@@ -96,12 +96,6 @@ export default {
       } else {
         this.box && this.box.removeEventListener('scroll', this.handler, false)
       }
-    },
-    isAuthorized (authorized) {
-      if (!authorized) {
-        this.$router.replace('/register')
-        return
-      }
     }
   },
   computed: {
