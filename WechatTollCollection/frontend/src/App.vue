@@ -80,8 +80,10 @@ export default {
   watch: {
     path (path) {
       if (!this.isAuthorized) {
-        this.$router.replace('/register')
-        return;
+        if (path !== '/signin' && path !== '/register') {
+          this.$router.replace('/signin')
+          return
+        }
       }
       if (path === '/component/demo') {
         this.$router.replace('/demo')

@@ -80,6 +80,7 @@ Vue.use(LocalePlugin)
 import App from './app.vue'
 import Home from './views/home.vue'
 import RegisterView from './views/users/register/index.vue'
+import SignInView from './views/users/signin.vue'
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 
@@ -91,6 +92,9 @@ const routes = [{
 }, {
   path: '/register',
   component: RegisterView
+}, {
+  path: '/signin',
+  component: SignInView
 }]
 
 const router = new VueRouter({
