@@ -21,7 +21,7 @@
         <router-view class="router-view"></router-view>
       </transition>
 
-      <tabbar class="vux-demo-tabbar" icon-class="vux-center" slot="bottom">
+      <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="isAuthorized" slot="bottom">
         <tabbar-item :link="{path:'/'}" :selected="route.path === '/'">
           <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
           <span slot="label">Home</span>
@@ -79,6 +79,10 @@ export default {
   },
   watch: {
     path (path) {
+      if (!this.isAuthorized) {
+        this.$router.replace('/register')
+        return;
+      }
       if (path === '/component/demo') {
         this.$router.replace('/demo')
         return
@@ -92,6 +96,12 @@ export default {
       } else {
         this.box && this.box.removeEventListener('scroll', this.handler, false)
       }
+    },
+    isAuthorized (authorized) {
+      if (!authorized) {
+        this.$router.replace('/register')
+        return
+      }
     }
   },
   computed: {
@@ -99,6 +109,7 @@ export default {
       route: state => state.route,
       path: state => state.route.path,
       deviceready: state => state.app.deviceready,
+      isAuthorized: state => state.isAuthorized,
       isLoading: state => state.vux.isLoading,
       direction: state => state.vux.direction
     }),

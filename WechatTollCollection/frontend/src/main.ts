@@ -20,6 +20,19 @@ Vue.use(<PluginObject<object>><any>Vuex);
 // initialize the vuex store using the vuex module. note that you can change the 
 //  name of the module if you wish 
 const store = new Vuex.Store({
+  state: {
+    isAuthorized: false,
+  },
+  mutations: {
+    signIn (state) {
+      state["isAuthorized"] = true;
+    }
+  },
+  actions: {
+    signIn (context) {
+      context.commit('signIn');
+    }
+  },
   modules: {
     i18n: vuexI18n.store
   }
@@ -66,6 +79,7 @@ Vue.use(LocalePlugin)
 
 import App from './app.vue'
 import Home from './views/home.vue'
+import RegisterView from './views/users/register/index.vue'
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 
@@ -74,6 +88,9 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/',
   component: Home
+}, {
+  path: '/register',
+  component: RegisterView
 }]
 
 const router = new VueRouter({
