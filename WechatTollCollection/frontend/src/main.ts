@@ -4,7 +4,10 @@ import Vue from 'vue'
 import { PluginObject } from 'vue'
 import Vuex from 'vuex'
 
+import Models from './models'
+import { App } from './app'
 
+const app = new App();
 
 import Es6Promise from 'es6-promise'
 Es6Promise.polyfill();
@@ -22,15 +25,20 @@ Vue.use(<PluginObject<object>><any>Vuex);
 const store = new Vuex.Store({
   state: {
     isAuthorized: false,
+    user: <Models.User>{ id: 0, name: 'Guest' }
   },
   mutations: {
     signIn (state) {
       state["isAuthorized"] = true;
+      state["user"] = app.context.user;
     }
   },
   actions: {
-    signIn (context) {
-      context.commit('signIn');
+    async signIn (context) {
+      var result = await app.signIn("Json", "Pass");
+      if (result){
+        context.commit('signIn');
+      }
     }
   },
   modules: {
@@ -77,7 +85,7 @@ Vue.use(LocalePlugin)
 
 
 
-import App from './app.vue'
+import AppVue from './app.vue'
 import Home from './views/home.vue'
 import RegisterView from './views/users/register/index.vue'
 import SignInView from './views/users/signin.vue'
@@ -146,5 +154,5 @@ Vue.config.productionTip = false
 new Vue({
   store,
   router,
-  render: h => h(App)
+  render: h => h(AppVue)
 }).$mount('#app-box')
